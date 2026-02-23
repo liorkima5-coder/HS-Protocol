@@ -13,8 +13,8 @@ export default function Home() {
 
   const [loading, setLoading] = useState(false);
 
-  // הלינק המעודכן שלך ל-Google Script
-  const SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyTb5hFStJ-7iaCEoWzyIxXqoMZSfppN4BWd1D2oM3r_v54T3MKU0_PWwP0REJP4d0/exec";
+  // הכתובת המעודכנת ששלחת
+  const SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzLCE1rwcw-l3V0baj1pm1SRHd050EggJyfX_4wlZVryORkM7KGo-ME5mnoz8PViN7c/exec";
 
   const sendToSheets = async () => {
     try {
@@ -33,7 +33,7 @@ export default function Home() {
     setLoading(true);
     try {
       const res = await axios.post('/api/generate', formData, { responseType: 'blob' });
-      // פורמט שם קובץ: <שם הפרויקט> - <נושא הפגישה> <תאריך>
+      // שם קובץ: <שם הפרויקט> - <נושא הפגישה> <תאריך>
       const fileName = `${formData.project_name || 'פרויקט'} - ${formData.meeting_subject || 'פגישה'} ${formData.date || ''}.docx`;
       saveAs(res.data, fileName);
 
@@ -71,8 +71,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gray-50 p-4 md:p-10 text-right" dir="rtl">
-      <title>ח.ש קהילה - יצירת סיכום פגישה</title>
-      <div className="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-2xl shadow-xl border border-gray-100">
+      <div className="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-2xl shadow-xl border border-gray-200">
         
         <div className="flex flex-col items-center mb-10 space-y-4">
           <img src="/hs.jpg" alt="Logo" className="h-20 w-auto object-contain shadow-sm rounded-lg" />
@@ -135,7 +134,7 @@ export default function Home() {
         
         <div className="bg-blue-600/5 p-6 rounded-2xl border-2 border-blue-600/10 mb-10">
           <label className="block font-bold text-blue-900 mb-3 text-lg">📸 צרוף תמונות לנספח</label>
-          <input type="file" multiple accept="image/*" className="w-full cursor-pointer text-sm" onChange={handleImageUpload} />
+          <input type="file" multiple accept="image/*" className="w-full cursor-pointer text-sm text-right" onChange={handleImageUpload} />
           {formData.images.length > 0 && <p className="mt-2 text-blue-600 font-bold">הועלו {formData.images.length} תמונות</p>}
         </div>
 
